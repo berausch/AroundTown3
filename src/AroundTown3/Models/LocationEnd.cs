@@ -25,5 +25,17 @@ namespace AroundTown3.Models
         public string Zip { get; set; }
 
         public virtual Route Route { get; set; }
+
+        public LocationEnd(string locationName, string address, string city, string state, string zip, int locationId = 0)
+        {
+            LocationId = locationId;
+            Address = address;
+            City = city;
+            State = state;
+            Zip = zip;
+            LocationId = locationId;
+        }
+
+        public LocationEnd() { }
     }
 }
