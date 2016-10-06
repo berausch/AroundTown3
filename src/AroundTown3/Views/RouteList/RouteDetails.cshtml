@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Route Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model IEnumerable<AroundTown3.Models.Location>
+     
+    <h2>Route Details</h2>
+    <hr />
+
+    <ul>
+        @foreach (var itemLocation in Model)
+        {
+            <li>@Html.DisplayFor(modelLocation => itemLocation.LocationName)</li>
+            <li>@Html.DisplayFor(modelLocation => itemLocation.Address)</li>
+            <li>@Html.DisplayFor(modelLocation => itemLocation.City), @Html.DisplayFor(modelLocation => itemLocation.State) @Html.DisplayFor(modelLocation => itemLocation.Zip)</li>
+        }
+    </ul>
+    <p>@Html.ActionLink("Edit this Route", "EditLocation")</p>
+

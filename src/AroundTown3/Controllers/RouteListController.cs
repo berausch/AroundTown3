@@ -29,6 +29,34 @@ namespace AroundTown3.Controllers
             return View(_db.Routes.Where(x => x.User.Id == currentUser.Id));
         }
 
+        public IActionResult RouteDetails(int id)
+        {
+            var thisRoute = _db.Routes.FirstOrDefault(routes => routes.Id == id);
+            if (thisRoute.Locations == null)
+            {
+                return RedirectToAction("CreateLocation");
+            }
+            else
+            {
+                return View(thisRoute.Locations.ToList());
+            }
+        }
+
+        public IActionResult CreateLocationStart()
+        {
+            return View();
+        }
+
+        public IActionResult CreateLocationEnd()
+        {
+            return View();
+        }
+
+        public IActionResult CreateLocation()
+        {
+            return View();
+        }
+
         public IActionResult Create()
         {
             return View();

@@ -35,6 +35,40 @@ namespace AroundTown3.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "LocationEnds",
+                columns: table => new
+                {
+                    LocationId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Address = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: true),
+                    LocationName = table.Column<string>(nullable: true),
+                    State = table.Column<string>(nullable: true),
+                    Zip = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LocationEnds", x => x.LocationId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LocationStarts",
+                columns: table => new
+                {
+                    LocationId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Address = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: true),
+                    LocationName = table.Column<string>(nullable: true),
+                    State = table.Column<string>(nullable: true),
+                    Zip = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LocationStarts", x => x.LocationId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
                 {
@@ -104,6 +138,40 @@ namespace AroundTown3.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Routes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    LocationEndLocationId = table.Column<int>(nullable: true),
+                    LocationStartLocationId = table.Column<int>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Routes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Routes_LocationEnds_LocationEndLocationId",
+                        column: x => x.LocationEndLocationId,
+                        principalTable: "LocationEnds",
+                        principalColumn: "LocationId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Routes_LocationStarts_LocationStartLocationId",
+                        column: x => x.LocationStartLocationId,
+                        principalTable: "LocationStarts",
+                        principalColumn: "LocationId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Routes_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -148,6 +216,30 @@ namespace AroundTown3.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Locations",
+                columns: table => new
+                {
+                    LocationId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Address = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: true),
+                    LocationName = table.Column<string>(nullable: true),
+                    RouteId = table.Column<int>(nullable: true),
+                    State = table.Column<string>(nullable: true),
+                    Zip = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Locations", x => x.LocationId);
+                    table.ForeignKey(
+                        name: "FK_Locations_Routes_RouteId",
+                        column: x => x.RouteId,
+                        principalTable: "Routes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",
                 table: "AspNetUsers",
@@ -158,6 +250,28 @@ namespace AroundTown3.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Locations_RouteId",
+                table: "Locations",
+                column: "RouteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Routes_LocationEndLocationId",
+                table: "Routes",
+                column: "LocationEndLocationId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Routes_LocationStartLocationId",
+                table: "Routes",
+                column: "LocationStartLocationId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Routes_UserId",
+                table: "Routes",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
@@ -193,6 +307,9 @@ namespace AroundTown3.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Locations");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
             migrationBuilder.DropTable(
@@ -208,7 +325,16 @@ namespace AroundTown3.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Routes");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "LocationEnds");
+
+            migrationBuilder.DropTable(
+                name: "LocationStarts");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

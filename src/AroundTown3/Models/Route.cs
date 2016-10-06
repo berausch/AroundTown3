@@ -15,6 +15,9 @@ namespace AroundTown3.Models
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
+        public virtual LocationEnd LocationEnd { get; set; }
+        public virtual LocationStart LocationStart { get; set; }
+        public virtual ICollection<Location> Locations { get; set; }
         public virtual ApplicationUser User { get; set; }
     }
 }

@@ -65,16 +65,90 @@ namespace AroundTown3.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("AroundTown3.Models.Location", b =>
+                {
+                    b.Property<int>("LocationId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Address");
+
+                    b.Property<string>("City");
+
+                    b.Property<string>("LocationName");
+
+                    b.Property<int?>("RouteId");
+
+                    b.Property<string>("State");
+
+                    b.Property<string>("Zip");
+
+                    b.HasKey("LocationId");
+
+                    b.HasIndex("RouteId");
+
+                    b.ToTable("Locations");
+                });
+
+            modelBuilder.Entity("AroundTown3.Models.LocationEnd", b =>
+                {
+                    b.Property<int>("LocationId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Address");
+
+                    b.Property<string>("City");
+
+                    b.Property<string>("LocationName");
+
+                    b.Property<string>("State");
+
+                    b.Property<string>("Zip");
+
+                    b.HasKey("LocationId");
+
+                    b.ToTable("LocationEnds");
+                });
+
+            modelBuilder.Entity("AroundTown3.Models.LocationStart", b =>
+                {
+                    b.Property<int>("LocationId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Address");
+
+                    b.Property<string>("City");
+
+                    b.Property<string>("LocationName");
+
+                    b.Property<string>("State");
+
+                    b.Property<string>("Zip");
+
+                    b.HasKey("LocationId");
+
+                    b.ToTable("LocationStarts");
+                });
+
             modelBuilder.Entity("AroundTown3.Models.Route", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("LocationEndLocationId");
+
+                    b.Property<int?>("LocationStartLocationId");
 
                     b.Property<string>("Name");
 
                     b.Property<string>("UserId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("LocationEndLocationId")
+                        .IsUnique();
+
+                    b.HasIndex("LocationStartLocationId")
+                        .IsUnique();
 
                     b.HasIndex("UserId");
 
@@ -188,8 +262,23 @@ namespace AroundTown3.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("AroundTown3.Models.Location", b =>
+                {
+                    b.HasOne("AroundTown3.Models.Route", "Route")
+                        .WithMany("Locations")
+                        .HasForeignKey("RouteId");
+                });
+
             modelBuilder.Entity("AroundTown3.Models.Route", b =>
                 {
+                    b.HasOne("AroundTown3.Models.LocationEnd", "LocationEnd")
+                        .WithOne("Route")
+                        .HasForeignKey("AroundTown3.Models.Route", "LocationEndLocationId");
+
+                    b.HasOne("AroundTown3.Models.LocationStart", "LocationStart")
+                        .WithOne("Route")
+                        .HasForeignKey("AroundTown3.Models.Route", "LocationStartLocationId");
+
                     b.HasOne("AroundTown3.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");

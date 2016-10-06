@@ -21,5 +21,6 @@ namespace AroundTown3.Models
             base.OnModelCreating(builder);
         }
         public DbSet<Route> Routes { get; set; }
+        public DbSet<Location> Locations { get; set; }
     }
 }

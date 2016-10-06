@@ -16,6 +16,24 @@
         @foreach (var listRoute in Model)
         {
             <li>@Html.DisplayFor(modelRoute => listRoute.Name)</li>
+            @if (listRoute.LocationStart == null)
+            {
+                <p>@Html.ActionLink("Add your Start Location", "CreateLocationStart", new { id = listRoute.Id })</p>
+            }
+            else
+            {
+                <p>@Html.DisplayFor(modelRoute => listRoute.LocationStart)</p>
+            }
+
+            @if (listRoute.LocationEnd == null)
+            {
+                <p>@Html.ActionLink("Add your End Location", "CreateLocationEnd", new { id = listRoute.Id })</p>
+            }
+            else
+            {
+                <p>@Html.DisplayFor(modelRoute => listRoute.LocationEnd)</p>
+            }
+            <p>@Html.ActionLink("Details", "RouteDetails", new { id = listRoute.Id })</p>
         }
     </ul>
 }
