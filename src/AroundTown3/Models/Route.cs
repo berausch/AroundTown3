@@ -19,5 +19,16 @@ namespace AroundTown3.Models
         public virtual LocationStart LocationStart { get; set; }
         public virtual ICollection<Location> Locations { get; set; }
         public virtual ApplicationUser User { get; set; }
+
+        public Route(string name, int id = 0)
+        {
+            Name = name;
+            Id = id;
+        }
+
+        public Route() { }
+
     }
+
+    
 }

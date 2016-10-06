@@ -8,7 +8,7 @@ using AroundTown3.Models;
 namespace AroundTown3.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20161006103220_Initial")]
+    [Migration("20161006123336_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

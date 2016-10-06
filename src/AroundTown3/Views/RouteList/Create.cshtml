@@ -6,10 +6,9 @@
 
 <h2>Add a new Route</h2>
 <hr />
-@using (Html.BeginForm())
-{
-    @Html.LabelFor(model => model.Name)
-    @Html.EditorFor(model => model.Name)
-    <input type="submit" value="Create" />
-}
+<form action="CreateRoute" class="create-route">
+    <label for="newRouteName"> Route Name </label>
+    <input type="text" name="newRouteName" />
+</form>
+<div id="resultCreate"></div>
 @Html.ActionLink("Back to List", "Index")

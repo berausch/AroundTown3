@@ -22,6 +22,16 @@ namespace AroundTown3.Controllers
             _db = db;
         }
 
+        [HttpPost]
+        public IActionResult CreateRoute(string newRouteName)
+        {
+            Route newRoute = new Route(newRouteName);
+            _db.Routes.Add(newRoute);
+            _db.SaveChanges();
+            return Json(newRoute);
+        }
+
+
         public async Task<IActionResult> Index()
         {
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
