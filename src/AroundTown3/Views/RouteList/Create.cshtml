@@ -1,14 +1,34 @@
-﻿@{
-    ViewData["Title"] = "Create";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-@model AroundTown3.Models.Route
-
-<h2>Add a new Route</h2>
-<hr />
-<form action="CreateRoute" class="create-route">
-    <label for="newRouteName"> Route Name </label>
-    <input type="text" name="newRouteName" />
-</form>
-<div id="resultCreate"></div>
-@Html.ActionLink("Back to List", "Index")
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>AJAX Demo</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+   
+</head>
+<body>
+    <h2>Add a new Route</h2>
+    <hr />
+    <form action="CreateRoute" class="create-route">
+        <label for="newRouteName"> Route Name </label>
+        <input type="text" name="newRouteName" />
+        <button type="submit">Submit</button>
+    </form>
+    <div id="resultRouteCreate"></div>
+    @Html.ActionLink("Back to List", "Index")
+    <script type="text/javascript">
+        $('.create-route').submit(function (event) {
+            event.preventDefault();
+            $.ajax({
+                url: '@Url.Action("CreateRoute")',
+                type: 'POST',
+                dataType: 'json',
+                data: $(this).serialize(),
+                success: function (result) {
+                    var resultMessage = 'You\'ve added a new Route to the database!<br>Id: ' + result.name;
+                    $('#resultRouteCreate').html(resultMessage);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

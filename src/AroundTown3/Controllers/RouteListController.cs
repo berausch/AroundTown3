@@ -23,9 +23,12 @@ namespace AroundTown3.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateRoute(string newRouteName)
+        public async Task<IActionResult> CreateRoute(string newRouteName)
         {
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var currentUser = await _userManager.FindByIdAsync(userId);
             Route newRoute = new Route(newRouteName);
+            newRoute.User = currentUser;
             _db.Routes.Add(newRoute);
             _db.SaveChanges();
             return Json(newRoute);

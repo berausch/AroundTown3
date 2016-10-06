@@ -26,7 +26,8 @@
           "Microsoft.Extensions.Configuration.Json": "1.0.0",
           "Microsoft.AspNetCore.Mvc": "1.0.0",
           "Microsoft.EntityFrameworkCore": "1.0.0",
-          "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0"
+          "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0",
+          "Microsoft.AspNetCore.Identity": "1.0.0"
         },
         "runtime": {
           "AroundTown3.dll": {}
