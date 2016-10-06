@@ -16,5 +16,10 @@ namespace AroundTown3.Models
         {
 
         }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+        }
+        public DbSet<Route> Routes { get; set; }
     }
 }
